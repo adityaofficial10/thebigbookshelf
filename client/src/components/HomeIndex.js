@@ -1,11 +1,12 @@
 import React from "react";
-import Login from "./Login";
 import {
   BrowserRouter as Router,
+  Routes,
   Route,
-  Link,
-  Switch
-} from 'react-router-dom';
+  Link
+} from "react-router-dom";
+
+import Login from "./Login";
 
 class HomeIndex extends React.Component {
 
@@ -29,8 +30,8 @@ class HomeIndex extends React.Component {
               <ul className="u-nav u-unstyled u-nav-1"><li className="u-nav-item"><a className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Home.html" style={{ padding: '10px 20px' }}>Home</a>
               </li><li className="u-nav-item"><a className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Home.html#sec-18a3" data-page-id={16819084} style={{ padding: '10px 20px' }}>Contact Us</a>
                 </li>
-                <Link to="/login"><li className="u-nav-item"><a className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=" " style={{ padding: '10px 20px' }}>Login</a>
-                </li></Link>
+                <li className="u-nav-item"><a className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=" " style={{ padding: '10px 20px' }}><Link to="/login">Login</Link></a>
+                </li>
                 <li className="u-nav-item"><a className="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Signup.html" style={{ padding: '10px 20px' }}>Signup</a>
                 </li></ul>
             </div>
@@ -40,7 +41,7 @@ class HomeIndex extends React.Component {
                   <div className="u-menu-close" />
                   <ul className="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li className="u-nav-item"><a className="u-button-style u-nav-link" href="Home.html" style={{ padding: '10px 20px' }}>Home</a>
                   </li><li className="u-nav-item"><a className="u-button-style u-nav-link" href="Home.html#sec-18a3" data-page-id={16819084} style={{ padding: '10px 20px' }}>Contact Us</a>
-                    </li><li className="u-nav-item"><a className="u-button-style u-nav-link" href="Login.html" style={{ padding: '10px 20px' }}>Login</a>
+                    </li><li className="u-nav-item"><a className="u-button-style u-nav-link" href=" " style={{ padding: '10px 20px' }}><Link to="/login">Login</Link></a>
                     </li><li className="u-nav-item"><a className="u-button-style u-nav-link" href="Signup.html" style={{ padding: '10px 20px' }}>Signup</a>
                     </li></ul>
                 </div>
@@ -180,10 +181,12 @@ class HomeIndex extends React.Component {
           <svg className="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 551.13 551.13"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="#svg-1d98" /></svg>
           <svg className="u-svg-content" enableBackground="new 0 0 551.13 551.13" viewBox="0 0 551.13 551.13" xmlns="http://www.w3.org/2000/svg" id="svg-1d98"><path d="m275.565 189.451 223.897 223.897h51.668l-275.565-275.565-275.565 275.565h51.668z" /></svg>
         </span>
-        <Switch>
-              <Route exact path='/' component={Login}></Route>
-            </Switch>
-      </div></Router>
+        <Routes>
+          <Route path="/" component={HomeIndex}></Route>
+          <Route path="/login" component={Login}></Route>
+        </Routes>
+      </div>
+      </Router>
     );
   }
 }
