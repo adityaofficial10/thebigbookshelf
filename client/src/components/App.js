@@ -1,10 +1,10 @@
-import Homepage from "./Homepage";
-import Hp from "./Hp";
+import React from "react";
+import HomeIndex from "./HomeIndex";
 
 function App() {
   return (
     <div>
-      <Hp/>
+      <HomeIndex/>
     </div>
   );
 }
