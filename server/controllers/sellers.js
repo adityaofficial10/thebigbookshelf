@@ -15,12 +15,11 @@ module.exports = {
             res.json(item);
         } else {
             let itemId = req.body.itemId;
-            let deal = await itemModel.findByIdAndUpdate(itemId, {
-                '$inc': {
-                    quantity: req.body.quantity
-                }
-            });
-            res.json(deal);
+            // let oldStock = await itemModel.findById(itemId);
+            let deal = await itemModel.findByIdAndUpdate(itemId,{ $set: req.body });
+            let updatedDeal = await itemModel.findById(itemId);
+
+            res.json(updatedDeal);
         }
     }
 };

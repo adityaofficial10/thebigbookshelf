@@ -14,12 +14,7 @@ exports.auth = async (req,res,next) => {
         next();
     } 
     catch (error) {
-        // console.log("Second")
         console.log(error);
-        // var response = {
-        //     "statusCode" : 401
-        // };
-        // res.send(response);
         res.send(error);
         
     }
