@@ -4,21 +4,6 @@ class HomeIndex extends React.Component {
   render() {
     return (
       <div>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta charSet="utf-8" />
-        <meta name="keywords" content="​A Book Emporium, Why Us ?" />
-        <meta name="description" content />
-        <meta name="page_type" content="np-template-header-footer-from-plugin" />
-        <title>Big Bookshelf</title>
-        <link rel="stylesheet" href="nicepage.css" media="screen" />
-        <link rel="stylesheet" href="Home.css" media="screen" />
-        <meta name="generator" content="Nicepage 3.29.1, nicepage.com" />
-        <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" />
-        <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" />
-        <meta name="theme-color" content="#478ac9" />
-        <meta property="og:title" content="Home" />
-        <meta property="og:description" content />
-        <meta property="og:type" content="website" />
         <header className="u-black u-clearfix u-header u-header" id="sec-76fa">
           <div className="u-clearfix u-sheet u-sheet-1">
             <a href="Home.html" data-page-id={16819084} className="u-align-left-md u-align-left-sm u-align-left-xs u-image u-logo u-image-1" data-image-width={400} data-image-height={400} title="Home">
