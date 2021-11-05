@@ -17,9 +17,7 @@ module.exports = {
                 sold_at: new Date().toUTCString()
             });
             await itemModel.findByIdAndUpdate(itemId, {
-                '$dec' : {
-                    quantity: qty
-                }
+                $set: {quantity : qty} 
             });
             res.json(deal);
         }
