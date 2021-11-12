@@ -1,12 +1,13 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
+import logoPath from "../images/logo.jpg";
 
 function HomeHeader() {
     return (
         <header className="u-black u-clearfix u-header u-header" id="sec-76fa"><div className="u-clearfix u-sheet u-sheet-1">
             <Link to="/" data-page-id={16819084} className="u-align-left-md u-align-left-sm u-align-left-xs u-image u-logo u-image-1" data-image-width={400} data-image-height={400} title="Home">
-                <img src="images/8HcfM0ab_400x400.jpg" alt="..." className="u-logo-image u-logo-image-1" />
+                <img src={logoPath} alt="..." className="u-logo-image u-logo-image-1" />
             </Link>
             <nav className="u-menu u-menu-dropdown u-offcanvas u-menu-1">
                 <div className="menu-collapse" style={{ fontSize: '1rem', letterSpacing: '0px' }}>
