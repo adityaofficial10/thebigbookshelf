@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import logoPath from "../images/8HcfM0ab_400x400.jpg";
+import logoPath from "../images/logo.jpg";
 
 function HomeHeader() {
     return (

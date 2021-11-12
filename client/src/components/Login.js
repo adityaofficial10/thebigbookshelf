@@ -39,7 +39,7 @@ function Login() {
                                                     <label htmlFor="checkbox-22e3" className="u-label">Remember me</label>
                                                 </div>
                                                 <div className="u-align-left u-form-group u-form-submit">
-                                                    <a href=" " className="u-btn u-btn-round u-btn-submit u-button-style u-radius-50 u-btn-1">Login</a>
+                                                    <Link to="/dashboard" className="u-btn u-btn-round u-btn-submit u-button-style u-radius-50 u-btn-1">Login</Link>
                                                     <input type="submit" defaultValue="submit" className="u-form-control-hidden" />
                                                 </div>
                                                 <input type="hidden" defaultValue name="recaptchaResponse" />
