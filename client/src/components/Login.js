@@ -22,18 +22,27 @@ function Login() {
             username: uname,
             password: pass
         });
+        var error = true;
         const resp = await instance.post('/auth/login', data, {withCredentials:true});
-        //console.log(resp);
+        console.log(resp);
         if (resp.status === 200) {
+            
             if(resp.data.errorMessages.length === 0){
+                error = false;
+                localStorage.setItem("profile", resp.data['token']);
                 setRedirect(1);
             }
+        }
+
+        if (error) {
+            alert(`Error: ${resp.data.errorMessages[0]}`);
         }
     }
     
     if(!redirect){
         return (
             <div>
+                {localStorage.getItem("profile") !== null ? setRedirect(1): console.log("Welcome To BigBookshelf")}
                 <HomeHeader />
                 <section className="u-align-center u-clearfix u-image u-shading u-section-1" data-image-width={2000} data-image-height={1333} id="sec-9d3b">
                     <div className="u-clearfix u-sheet u-sheet-1">
@@ -58,10 +67,10 @@ function Login() {
                                                         <label htmlFor="password-22e3" className="u-form-control-hidden u-label" />
                                                         <input type="password" value={pass} onChange = {(e) =>setPass(e.target.value)} placeholder="Enter your Password" id="password-22e3" name="password" className="u-border-1 u-border-white u-input u-input-rectangle u-radius-50 u-white" required />
                                                     </div>
-                                                    <div className="u-form-checkbox u-form-group">
+                                                    {/* <div className="u-form-checkbox u-form-group">
                                                         <input type="checkbox" id="checkbox-22e3" name="remember" defaultValue="On" />
                                                         <label htmlFor="checkbox-22e3" className="u-label">Remember me</label>
-                                                    </div>
+                                                    </div> */}
                                                     <div className="u-align-left u-form-group u-form-submit">
                                                         <button onClick = {login}  className="u-btn u-btn-round u-btn-submit u-button-style u-radius-50 u-btn-1">Login</button>
                                                     </div>
