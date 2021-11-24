@@ -1,9 +1,17 @@
+require('dotenv').config({
+    path: "config/.env"
+});
 const mongoose = require('mongoose');
-require('dotenv').config();
+mongoose.Promise = global.Promise;
+let isConnected;
 
-const connectDB = async () => {
-    await mongoose.connect(process.env.URI,{ useNewUrlParser: true, useUnifiedTopology: true });
-    console.log('Connected to database');
-}
+module.exports = connectToDatabase = () => {
+  if (isConnected) {
+    return Promise.resolve();
+  }
 
-module.exports = connectDB;
+  return mongoose.connect(process.env.URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(db => {
+      isConnected = db.connections[0].readyState;
+    });
+};
