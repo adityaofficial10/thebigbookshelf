@@ -7,8 +7,23 @@ const cors = require("cors");
 const DB = require('./config/database')
 const app = express();
 
+var corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200,
+};
+
 app.use(express.json());
-app.use(cors());
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept',
+    );
+    next();
+});
+
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 
 const buyers = require('./routes/buyers');
@@ -22,10 +37,6 @@ app.use('/sellers', sellers);
 app.use('/auth',auth);
 app.use('/search',search);
 app.use('/profile',profile);
-
-app.get('/', function(req, res, next) {
-    res.send("Big Bookshelf API running...")
-});
 
 const PORT = process.env.PORT || 4000;
 
