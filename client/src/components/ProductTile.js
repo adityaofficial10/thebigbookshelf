@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 
 import "../css/BuyerDashboard.scoped.css";
 
-function ProductTile() {
+function ProductTile(props) {
     return (
         <div className="u-container-style u-grey-10 u-products-item u-repeater-item u-repeater-item-1">
             <div className="u-container-layout u-similar-container u-container-layout-1">{/*product_image*/}
                 <img alt="..." className="u-expanded-width u-image-contain u-image u-image-default u-product-control u-image-1" data-image-width={1659} data-image-height={2560} src="https://images-na.ssl-images-amazon.com/images/I/81EbEWM54ML.jpg" />{/*/product_image*/}
-                <h4 className="u-align-center u-text u-text-1">Harry Potter and The Prisoner of Azkaban</h4>
+                <h4 className="u-align-center u-text u-text-1">{props.name}</h4>
                 <h5 className="u-text u-text-default u-text-2">J K Rowling</h5>{/*product_price*/}
                 <div className="u-product-control u-product-price u-product-price-1">
                     <div className="u-price-wrapper u-spacing-10">{/*product_old_price*/}
                         <div className="u-hide-price u-old-price">{/*product_old_price_content*/}$12{/*/product_old_price_content*/}</div>{/*/product_old_price*/}{/*product_regular_price*/}
-                        <div className="u-price" style={{ fontSize: '1.25rem', fontWeight: 600 }}>{/*product_regular_price_content*/}$9.95{/*/product_regular_price_content*/}</div>{/*/product_regular_price*/}
+                        <div className="u-price" style={{ fontSize: '1.25rem', fontWeight: 600 }}>{/*product_regular_price_content*/}props.price{/*/product_regular_price_content*/}</div>{/*/product_regular_price*/}
                     </div>
                 </div>{/*/product_price*/}
                 <h6 className="u-text u-text-default u-text-3">Seller 1 Name</h6>

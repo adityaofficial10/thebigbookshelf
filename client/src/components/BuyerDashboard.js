@@ -33,7 +33,15 @@ function BuyerDashboard() {
           <div className="u-expanded-width u-pagination-center u-products u-products-1">
             <div className="u-list-control" />
             <div className="u-repeater u-repeater-1">
-              {itemsList.length > 0 ? itemsList.map((ele) => (<ProductTile/>)) : <h5>Currently Our Bookshelf is Empty ):<br/>Please Come Back Later</h5>}
+              {itemsList.length > 0 ? itemsList.map((ele) => (
+                <ProductTile 
+                  name={ele["name"]}
+                  desc={ele["description"]}
+                  quantity={ele["quantity"]}
+                  price={ele["price"]}
+                  used={ele["used"]}
+                />
+              )) : <h5>Currently Our Bookshelf is Empty ):<br />Please Come Back Later</h5>}
               {/* <ProductTile />
               <ProductTile />
               <ProductTile />
