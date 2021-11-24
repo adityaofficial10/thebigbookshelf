@@ -1,5 +1,6 @@
 const itemModel = require('../models/items');
 const dealModel = require('../models/deals');
+const { handlePayment } = require('../controllers/stripe');
 
 module.exports = {
     purchaseBook: async function(req, res, next) {
@@ -9,6 +10,7 @@ module.exports = {
         if(qty > item.quantity) {
             res.send('Quantity is more than available no. of items.');
         } else {
+
             let deal = await dealModel.create({
                 quantity: qty,
                 buyer: req.userId,
@@ -18,6 +20,13 @@ module.exports = {
             });
             await itemModel.findByIdAndUpdate(itemId, {
                 $set: {quantity : qty} 
+            });
+            await handlePayment({
+                quantity: qty,
+                price: item.price,
+                cardToken: req.body.cardToken,
+                title: item.name,
+                id: itemId
             });
             res.json(deal);
         }
