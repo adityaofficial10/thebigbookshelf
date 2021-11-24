@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
 
 import DashboardHeader from "./DashboardHeader";
 import Footer from "./Footer";
@@ -6,8 +6,24 @@ import ProductTile from "./ProductTile";
 
 import "../css/BuyerDashboard.scoped.css";
 import { Link } from "react-router-dom";
+import { allItems } from "../helpers/api";
 
 function BuyerDashboard() {
+
+  const [itemsList, setItemsList] = useState([]);
+
+  async function getAllItems() {
+    var res = await allItems();
+    if (res.status === 200) {
+      setItemsList(res.data);
+    } else {
+      alert(`Unknown Error Occurred: Please Try Again Later`);
+      setItemsList([]);
+    }
+  }
+
+  useEffect(() => getAllItems(), []);
+
   return (
     <div>
       <DashboardHeader />
@@ -17,6 +33,8 @@ function BuyerDashboard() {
           <div className="u-expanded-width u-pagination-center u-products u-products-1">
             <div className="u-list-control" />
             <div className="u-repeater u-repeater-1">
+              {itemsList.length > 0 ? itemsList.map((ele) => (<ProductTile/>)) : <h5>Currently Our Bookshelf is Empty ):<br/>Please Come Back Later</h5>}
+              {/* <ProductTile />
               <ProductTile />
               <ProductTile />
               <ProductTile />
@@ -26,8 +44,7 @@ function BuyerDashboard() {
               <ProductTile />
               <ProductTile />
               <ProductTile />
-              <ProductTile />
-              <ProductTile />
+              <ProductTile /> */}
             </div>
             <div className="u-list-control">{/*products_pagination*/}{/*products_pagination_options_json*/}{/*{"ul":"style=\"\" class=\"responsive-style1 u-pagination u-spacing-0 u-unstyled u-pagination-1\"","li":"style=\"\" class=\"u-nav-item u-pagination-item\"","link":"style=\"padding: 24px 28px;\" class=\"u-button-style u-hover-palette-4-light-1 u-nav-link u-palette-4-dark-2\""}*/}{/*/products_pagination_options_json*/}
               <ul className="responsive-style1 u-pagination u-spacing-0 u-unstyled u-pagination-1">

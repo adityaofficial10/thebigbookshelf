@@ -16,4 +16,8 @@ axios.defaults.crossDomain = true;
 export const login = (body) => instance.post('/auth/login', body, {withCredentials: true});
 export const signup = (body) => instance.post('/auth/register', body, {withCredentials: true});
 
+export const allItems = () => instance.get('/search/getAll');
+
+export const addBook = (body) => instance.post('/sellers/add', body);
+
 export default instance;
