@@ -1,4 +1,9 @@
-const stripe = require('stripe')("sk_test_51Js0m8SIbQpOCQtjKNVtmdU9WIjNgeSNSLgvlZ4sJVxC1N4A0YKEMcpzhjyzNTdlgwjtmEfRfT24gIedHYumAyph00fZa1Chja");
+require("dotenv").config({
+    path: 'config/.env'
+});
+
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
 module.exports = {
     handlePayment: async function(data) {
