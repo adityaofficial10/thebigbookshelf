@@ -25,7 +25,7 @@ app.use('/search',search);
 app.use('/profile',profile);
 
 app.get('/', function(req, res, next) {
-    res.send("Big Bookshelf API")
+    res.send("Big Bookshelf API running...")
 });
 
 const PORT = process.env.PORT || 4000;
