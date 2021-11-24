@@ -10,7 +10,7 @@ const salting_rounds = 10;
 
 exports.register = async (req, res) => {
     // console.log(req.body);
-    const { username, password, email,isBuyer } = req.body;
+    const { username, password, email, isBuyer } = req.body;
     // console.log(req.body);
     // console.log(username);
     var token = "";
