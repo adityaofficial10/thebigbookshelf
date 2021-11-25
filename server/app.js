@@ -5,7 +5,6 @@ const serverless = require('serverless-http');
 const express = require('express');
 const cors = require("cors");
 const DB = require('./config/database')
-
 const app = express();
 
 var corsOptions = {
