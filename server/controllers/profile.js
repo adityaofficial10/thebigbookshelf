@@ -1,18 +1,23 @@
 const User = require('../models/users');
+const connectToDatabase = require('../config/database');
 
 module.exports = {
-    updation: async function(req, res, next) {
-        await User.findByIdAndUpdate(
-            req.userId,
-            { $set: req.body },
-            async (err,results) => {
-                if (!err) {
-                    var user = await User.findById(req.userId);
-                    res.send(user);
-                }
-                else res.send("Some error");
-            }
-        ).catch(err => console.log("Query error"));
+    updation: async function (event, context, callback) {
+        let userId = event.requestContext.authorizer.principalId;
+        let data = JSON.parse(event.body);
+        await connectToDatabase();
+        await User.findByIdAndUpdate(userId, { $set: data }).catch(err => {
+            console.log("Query error");
+            callback(null, {
+                statusCode: 400,
+                errors: null,
+            });
+        });
+        var user = await User.findById(userId);
+        callback(null, {
+            statusCode: 200,
+            errors: null,
+            body: JSON.stringify(user)
+        });
     }
-    
 }
