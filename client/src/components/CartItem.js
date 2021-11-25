@@ -3,7 +3,7 @@ import React from "react";
 import "../css/Cart.scoped.css";
 import cartItemImage from "../images/71sH3vxziLL.jpg";
 
-function CartItem() {
+function CartItem(props) {
     return (
         <tr style={{ height: '121px' }}>
             <td className="u-border-1 u-border-grey-15 u-table-cell"><span className="u-cart-remove-item u-icon u-text-grey-40 u-icon-1"><svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" xmlSpace="preserve" className="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style={{ width: '1em', height: '1em' }}><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
@@ -14,14 +14,14 @@ function CartItem() {
             </g></svg></span>
                 <img alt=" " className="u-cart-product-image u-image u-image-round u-product-control u-radius-17" src={cartItemImage} />
                 <h2 className="u-cart-product-title u-product-control u-text u-text-1">
-                    <a className="u-product-title-link" href=" ">Product 1 Title</a>
+                    <a className="u-product-title-link" href=" ">{props.name}</a>
                 </h2>
             </td>
             <td className="u-border-1 u-border-grey-15 u-table-cell">
                 <div className="u-cart-product-price u-product-control u-product-price">
                     <div className="u-price-wrapper">
                         <div className="u-hide-price u-old-price" />
-                        <div className="u-price" style={{ fontWeight: 700, fontSize: '1rem' }}>$17.00</div>
+                        <div className="u-price" style={{ fontWeight: 700, fontSize: '1rem' }}>Rs.{props.price}</div>
                     </div>
                 </div>
             </td>
@@ -43,7 +43,7 @@ function CartItem() {
                 <div className="u-cart-product-subtotal u-product-control u-product-price">
                     <div className="u-price-wrapper">
                         <div className="u-hide-price u-old-price" />
-                        <div className="u-price" style={{ fontWeight: 400 }}>$17.00</div>
+                        <div className="u-price" style={{ fontWeight: 400 }}>{props.price}</div>
                     </div>
                 </div>
             </td>

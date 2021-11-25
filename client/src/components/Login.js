@@ -24,7 +24,6 @@ function Login() {
         });
         var error = true;
         const resp = await instance.post('/auth/login', data, {withCredentials:true});
-        console.log(resp);
         if (resp.status === 200) {
             
             if(resp.data.errorMessages.length === 0){

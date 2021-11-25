@@ -34,7 +34,9 @@ function BuyerDashboard() {
             <div className="u-list-control" />
             <div className="u-repeater u-repeater-1">
               {itemsList.length > 0 ? itemsList.map((ele) => (
-                <ProductTile 
+                <ProductTile
+                  key={ele["_id"]}
+                  id = {ele["_id"]}
                   name={ele["name"]}
                   desc={ele["description"]}
                   quantity={ele["quantity"]}
