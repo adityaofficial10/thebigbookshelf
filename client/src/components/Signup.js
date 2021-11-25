@@ -26,7 +26,6 @@ function Signup() {
         });
         var error = true;
         const resp = await instance.post('/auth/register', data, {withCredentials:true});
-        console.log(resp.data);
         //console.log(resp.data.errorMessages);
         if (resp.status === 200) {
             if(resp.data.errorMessages.length === 0){

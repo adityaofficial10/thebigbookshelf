@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CartItem from "./CartItem";
-
+import qs from 'querystring'
 import DashboardHeader from "./DashboardHeader";
 import Footer from "./Footer";
 
 import "../css/Cart.scoped.css";
+import instance from "../helpers/api";
 
 function Cart() {
+
+    const [items, setItems] = useState([]);
+    var [totalPrice, setTotalPrice] = useState(0);
+
+    async function fetchItems() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || qs.stringify({});
+        console.log("CART ITEMS Line 16");
+        //console.log(cart);
+        const resp = await instance.post('/buyers/getItems', qs.stringify(cart), { withCredentials: true });
+        setItems(resp.data.result);
+        var tp = 0;
+        items.forEach((ele, index) => {
+            tp += parseInt(ele['price']);
+            console.log(`tp = ${tp}`);
+        });
+        //console.log(totalPrice);
+        setTotalPrice(tp);
+        console.log(totalPrice);
+    }
+
+    useEffect(() => fetchItems(), []);
+
     return (
         <div>
             <DashboardHeader />
@@ -30,9 +53,16 @@ function Cart() {
                                     </tr>
                                 </thead>
                                 <tbody className="u-align-left u-table-alt-grey-5 u-table-body">
-                                    <CartItem />
-                                    <CartItem />
-                                    <CartItem />
+                                    {items.length > 0 ? items.map((ele) =>
+                                        <CartItem
+                                            key={ele["_id"]}
+                                            name={ele["name"]}
+                                            price={ele["price"]}
+                                            id={ele["_id"]}
+                                        />
+                                    )
+                                        :
+                                        <p>Add Items To Your Cart To View Them Here</p>}
                                 </tbody>
                             </table>
                         </div>
@@ -79,11 +109,11 @@ function Cart() {
                                                 <tbody className="u-align-right u-grey-5 u-table-body u-table-body-2">
                                                     <tr style={{ height: '46px' }}>
                                                         <td className="u-align-left u-border-1 u-border-grey-15 u-first-column u-table-cell u-table-cell-17">Subtotal</td>
-                                                        <td className="u-border-1 u-border-grey-15 u-table-cell">$281.00</td>
+                                                        <td className="u-border-1 u-border-grey-15 u-table-cell">{totalPrice}</td>
                                                     </tr>
                                                     <tr style={{ height: '46px' }}>
                                                         <td className="u-align-left u-border-1 u-border-grey-15 u-first-column u-table-cell u-table-cell-19">Total</td>
-                                                        <td className="u-border-1 u-border-grey-15 u-table-cell u-table-cell-20">$281.00</td>
+                                                        <td className="u-border-1 u-border-grey-15 u-table-cell u-table-cell-20">{totalPrice}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

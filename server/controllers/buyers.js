@@ -23,7 +23,7 @@ module.exports = {
                 sold_at: new Date().toUTCString()
             });
             await itemModel.findByIdAndUpdate(itemId, {
-                $set: {quantity : qty} 
+                $set: { quantity: qty }
             });
             await handlePayment({
                 quantity: quantity,
@@ -53,6 +53,27 @@ module.exports = {
             statusCode: 200,
             errors: null,
             body: JSON.stringify(feedback)
+        });
+
+    getItems: async function (event, context, callback) {
+        let cart = JSON.parse(event.body);
+        let cartItems = cart['product_id'];
+        var result = [];
+        await connectToDatabase();
+        for (var i = 0; i < cartItems.length; i++) {
+            if (cartItems[i].match(/^[0-9a-fA-F]{24}$/)) {
+                // Yes, it's a valid ObjectId, proceed with `findById` call.
+                var rest = await itemModel.findById(cartItems[i]);
+                if (rest) { result.push(rest); }
+              }
+            
+        }
+
+        console.log(result);
+        callback(null, {
+            statusCode: 200,
+            errors: null,
+            body: JSON.stringify(result)
         });
     }
 }
