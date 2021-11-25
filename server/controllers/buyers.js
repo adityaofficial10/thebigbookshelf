@@ -10,10 +10,7 @@ module.exports = {
         await connectToDatabase();
         let item = await itemModel.findById(itemId);
         if(quantity > item.quantity) {
-            callback(null, {
-                statusCode: 400,
-                errors: ["Quantity is more than available no. of items"]
-            });
+            throw new Error("Quantity is more than available no. of items");
         } else {
             let deal = await dealModel.create({
                 quantity: quantity,
@@ -32,11 +29,14 @@ module.exports = {
                 title: item.name,
                 id: itemId
             });
-            callback(null, {
-                statusCode: 200,
-                errors: null,
-                body: JSON.stringify(deal)
-            });
+            return {
+                "statusCode": 200,
+                "body": JSON.stringify(deal),
+                "headers": {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                },
+            };
         }
     },
     collectFeedback: async function(event, context, callback) {
@@ -49,12 +49,15 @@ module.exports = {
             seller: seller,
             content: content
         });
-        callback(null, {
-            statusCode: 200,
-            errors: null,
-            body: JSON.stringify(feedback)
-        });
-
+        return {
+            "statusCode": 200,
+            "body": JSON.stringify(feedback),
+            "headers": {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            },
+        };
+    },
     getItems: async function (event, context, callback) {
         let cart = JSON.parse(event.body);
         let cartItems = cart['product_id'];
@@ -70,10 +73,13 @@ module.exports = {
         }
 
         console.log(result);
-        callback(null, {
-            statusCode: 200,
-            errors: null,
-            body: JSON.stringify(result)
-        });
+        return {
+            "statusCode": 200,
+            "body": JSON.stringify(result),
+            "headers": {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            },
+        };
     }
-}
+};

@@ -40,11 +40,14 @@ exports.register = async (event, context, callback) => {
     if (errorMessages.length == 0) {
         let hash = await bcrypt.hash(password, salting_rounds).catch((err) => {
             errorMessages.push("Error in hashing");
-            callback(null, {
-                statusCode: 400,
-                errors: errorMessages,
-                body: JSON.stringify({ username, isBuyer })
-            });
+            return {
+                "statusCode": 400,
+                "body": JSON.stringify({ username, isBuyer, errorMessages }),
+                "headers": {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                },
+            };
         });
         const newUser = new User({
             _id: mongoose.Types.ObjectId(),
@@ -64,17 +67,23 @@ exports.register = async (event, context, callback) => {
         // };
         // const chatresponse = await chat_api.create_chat_user(chat_user);
         var id = newUser._id;
-        callback(null, {
-            statusCode: 200,
-            errors: errorMessages,
-            body: JSON.stringify({ id, username, isBuyer, token })
-        });
+        return {
+            "statusCode": 200,
+            "body": JSON.stringify({ id, username, isBuyer, token, errorMessages }),
+            "headers": {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            },
+        };
     } else {
-        callback(null, {
-            statusCode: 400,
-            errors: errorMessages,
-            body: JSON.stringify({ username })
-        });
+        return {
+            "statusCode": 400,
+            "body": JSON.stringify({ username, errorMessages }),
+            "headers": {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            },
+        };
     }
 };
 
@@ -97,48 +106,64 @@ exports.login = async (event, context, callback) => {
     await connectToDatabase();
     let user = await User.findOne({ 'username': username }).catch((err) => {
         errorMessages.push("Server error");
-        callback(null, {
-            statusCode: 500,
-            errors: errorMessages,
-            body: JSON.stringify({ username, isBuyer, token })
-        });
+        return {
+            "statusCode": 500,
+            "body": JSON.stringify({ username, isBuyer, token, errorMessages }),
+            "headers": {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            },
+          
+        };
     });
     if (user !== null) {
         let result = await bcrypt.compare(password, user.password).catch((errors) => {
             errorMessages.push("Error in hashing");
-            callback(null, {
-                statusCode: 500,
-                errors: errorMessages,
-                body: JSON.stringify({ username, isBuyer, token })
-            });
+            return {
+                "statusCode": 500,
+                "body": JSON.stringify({ username, isBuyer, token, errorMessages }),
+                "headers": {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                },
+            };
         });
         if (result === true) {
             chat_password = user.chat_password;
             token = jwt.sign({ email: user.email, id: user._id }, secret);
             isBuyer = user.isBuyer;
-            callback(null, {
-                statusCode: 200,
-                errors: errorMessages,
-                body: JSON.stringify({ username, isBuyer, token })
-            });
+            return {
+                "statusCode": 200,
+                "body": JSON.stringify({ username, isBuyer, token, errorMessages }),
+                "headers": {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                },
+            };
         }
         else {
             // console.log("Im here");
             errorMessages.push("Username and Password do not match");
-            callback(null, {
-                statusCode: 400,
-                errors: errorMessages,
-                body: JSON.stringify({ username, isBuyer, token })
-            });
+            return {
+                "statusCode": 400,
+                "body": JSON.stringify({ username, isBuyer, token, errorMessages }),
+                "headers": {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                },
+            };
         }
     }
     else {
         // console.log("Im here");
         errorMessages.push("Username does not exist");
-        callback(null, {
-            statusCode: 400,
-            errors: errorMessages,
-            body: JSON.stringify({ username, isBuyer, token })
-        });
+        return {
+            "statusCode": 400,
+            "body": JSON.stringify({ username, isBuyer, token, errorMessages }),
+            "headers": {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            },
+        };
     }
 };

@@ -24,7 +24,6 @@ functions:
       - http: 
           path: /buyers/test
           method: POST
-          cors: true
           authorizer:
               name: verify-token
               identitySource: method.request.header.Authorization 
@@ -35,21 +34,18 @@ functions:
       - http: 
           path: /auth/register
           method: POST
-          cors: true
   login:
     handler: controllers/auth.login
     events:
       - http: 
           path: /auth/login
           method: POST
-          cors: true
   purchase:
     handler: controllers/buyers.purchaseBook
     events:
       - http: 
           path: /buyers/purchase
           method: POST
-          cors: true
           authorizer:
               name: verify-token
               identitySource: method.request.header.Authorization 
@@ -60,7 +56,16 @@ functions:
       - http: 
           path: /buyers/feedback
           method: POST
-          cors: true
+          authorizer:
+              name: verify-token
+              identitySource: method.request.header.Authorization 
+              resultTtlInSeconds: 3600
+  getItems:
+    handler: controllers/buyers.getItems
+    events:
+      - http: 
+          path: /buyers/getItems
+          method: POST
           authorizer:
               name: verify-token
               identitySource: method.request.header.Authorization 
@@ -71,7 +76,6 @@ functions:
       - http: 
           path: /profile/update
           method: POST
-          cors: true
           authorizer:
             name: verify-token
             identitySource: method.request.header.Authorization 
@@ -82,21 +86,18 @@ functions:
       - http: 
           path: /search/getAll
           method: GET
-          cors: true
   getOne:
     handler: controllers/search.findQuery
     events:
       - http: 
           path: /search/getAll
           method: POST
-          cors: true
   addBook:
     handler: controllers/sellers.addBook
     events:
       - http: 
           path: /sellers/add
           method: POST
-          cors: true
           authorizer:
             name: verify-token
             identitySource: method.request.header.Authorization 

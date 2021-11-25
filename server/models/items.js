@@ -5,6 +5,7 @@ const itemSchema = mongoose.Schema({
     description : String,
     quantity: Number,
     price : String,
+    author_name: String,
     seller: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'users'

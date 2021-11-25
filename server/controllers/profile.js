@@ -8,16 +8,22 @@ module.exports = {
         await connectToDatabase();
         await User.findByIdAndUpdate(userId, { $set: data }).catch(err => {
             console.log("Query error");
-            callback(null, {
-                statusCode: 400,
-                errors: null,
-            });
+            return {
+                "statusCode": 200,
+                "headers": {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': true,
+                },
+            };
         });
         var user = await User.findById(userId);
-        callback(null, {
-            statusCode: 200,
-            errors: null,
-            body: JSON.stringify(user)
-        });
+        return {
+            "statusCode": 200,
+            "body": JSON.stringify(user),
+            "headers": {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': true,
+            },
+        };
     }
 }
