@@ -13,22 +13,27 @@ function Cart() {
     var [totalPrice, setTotalPrice] = useState(0);
 
     async function fetchItems() {
-        const cart = JSON.parse(localStorage.getItem("cart")) || qs.stringify({});
-        console.log("CART ITEMS Line 16");
-        //console.log(cart);
-        const resp = await instance.post('/buyers/getItems', qs.stringify(cart), { withCredentials: true });
-        setItems(resp.data.result);
-        var tp = 0;
-        items.forEach((ele, index) => {
-            tp += parseInt(ele['price']);
-            console.log(`tp = ${tp}`);
-        });
-        //console.log(totalPrice);
-        setTotalPrice(tp);
-        console.log(totalPrice);
+        
     }
 
-    useEffect(() => fetchItems(), []);
+    useEffect( () => {
+        async function fetchItems(){
+            const cart = JSON.parse(localStorage.getItem("cart")) || qs.stringify({});
+            console.log("CART ITEMS Line 16");
+            //console.log(cart);
+            const resp = await instance.post('/buyers/getItems', qs.stringify(cart), { withCredentials: true });
+            setItems(resp.data.result);
+            var tp = 0;
+            items.forEach((ele, index) => {
+                tp += parseInt(ele['price']);
+                console.log(`tp = ${tp}`);
+            });
+            //console.log(totalPrice);
+            setTotalPrice(tp);
+            console.log(totalPrice);
+        }
+        fetchItems();
+    }, [fetchItems]);
 
     return (
         <div>
