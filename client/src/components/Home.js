@@ -24,7 +24,7 @@ function Home() {
                   <div className="u-container-layout u-valign-middle u-container-layout-1">
                     <h4 className="u-text u-text-default u-text-1"> about us</h4>
                     <h2 className="u-text u-text-default u-text-2"> A Book Emporium</h2>
-                    <p className="u-text u-text-3">Etiam velit purus, vehicula quis imperdiet dignissim, convallis vitae nisl. Nullam facilisi. Pellentesque non pulvinar justo. Nullam eget neque ut tellus ornare ullamcorper ulla ambco mattis for nulla glavrida egesed!</p>
+                    <p className="u-text u-text-3">Ello there mate!</p>
                     <button onClick={scrollToWhyUs} on className="u-active-palette-3-dark-3 u-border-none u-btn u-btn-rectangle u-button-style u-custom-font u-font-pt-sans u-hover-palette-4-dark-3 u-palette-4-dark-2 u-radius-0 u-btn-1">read more</button>
                   </div>
                 </div>
