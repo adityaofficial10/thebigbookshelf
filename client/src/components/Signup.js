@@ -23,18 +23,26 @@ function Signup() {
             password: pass,
             isBuyer: true,
         });
+        var error = true;
         const resp = await instance.post('/auth/register', data, {withCredentials:true});
+        console.log(resp.data);
         //console.log(resp.data.errorMessages);
         if (resp.status === 200) {
             if(resp.data.errorMessages.length === 0){
+                error = false;
+                localStorage.setItem("profile", resp.data['token']);
                 setRedirect(1);
             }
+        }
+        if (error) {
+            alert(`Error: ${resp.data.errorMessages[0]}`)
         }
     }
     
     if(!redirect){
         return (
             <div>
+                {localStorage.getItem("profile") !== null ? setRedirect(1): console.log("Welcome To BigBookshelf")}
                 <HomeHeader />
                 <section className="u-align-center u-clearfix u-grey-5 u-section-1" id={"signup"}>
                     <div className="u-clearfix u-sheet u-valign-middle u-sheet-1">

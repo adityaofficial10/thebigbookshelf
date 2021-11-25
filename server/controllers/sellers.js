@@ -1,25 +1,34 @@
 const itemModel = require('../models/items');
+const connectToDatabase = require('../config/database');
 
 module.exports = {
-    addBook: async function(req, res, next) {
-        let type = req.body.type;
+    addBook: async function(event, context, callback) {
+        let { type, name, description, quantity, price, used, itemId } = JSON.parse(event.body);
+        let userId = event.requestContext.authorizer.principalId;
+        await connectToDatabase();
         if(type === 'new') {
             let item = await itemModel.create({
-                name: req.body.name,
-                description : req.body.description,
-                quantity: req.body.quantity,
-                price : req.body.price,
-                seller: req.userId,
-                used: req.body.used
+                name: name,
+                description : description,
+                quantity: quantity,
+                price : price,
+                seller: userId,
+                used: used
             });
-            res.json(item);
+            callback(null, {
+                statusCode: 200,
+                errors: null,
+                body: JSON.stringify(item)
+            });
         } else {
-            let itemId = req.body.itemId;
-            // let oldStock = await itemModel.findById(itemId);
-            let deal = await itemModel.findByIdAndUpdate(itemId,{ $set: req.body });
+            await itemModel.findByIdAndUpdate(itemId,{ $set: { name: name, quantity: quantity, price: price, description: description} });
             let updatedDeal = await itemModel.findById(itemId);
 
-            res.json(updatedDeal);
+            callback(null, {
+                statusCode: 200,
+                errors: null,
+                body: JSON.stringify(updatedDeal)
+            });
         }
     }
 };
